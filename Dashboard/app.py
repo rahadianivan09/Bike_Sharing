@@ -5,23 +5,31 @@ import seaborn as sns
 import matplotlib.ticker as ticker
 import os
 
-# test update
+# Cek direktori kerja saat ini
+current_dir = os.getcwd()
+st.write(f"📁 Direktori saat ini: {current_dir}")
 
+# Cek isi folder Dashboard
+dashboard_path = os.path.join(current_dir, "Dashboard")
+st.write(f"📂 Isi folder Dashboard: {os.listdir(dashboard_path) if os.path.exists(dashboard_path) else 'Folder tidak ditemukan'}")
 
-# Judul aplikasi
-st.title("Bike Sharing Dashboard")
+# Tentukan path file
+file_day = os.path.join(current_dir, "Dashboard", "day.csv")
+file_hour = os.path.join(current_dir, "Dashboard", "hour.csv")
 
-# Load dataset
-# Tentukan path file dataset
-file_day = os.path.join(os.path.dirname(__file__), "Dashboard", "day.csv")
-file_hour = os.path.join(os.path.dirname(__file__), "Dashboard", "hour.csv")
+# Debugging apakah file ada
+st.write(f"📄 Path day.csv: {file_day}")
+st.write(f"📄 Path hour.csv: {file_hour}")
+st.write(f"✅ File day.csv ada? {os.path.exists(file_day)}")
+st.write(f"✅ File hour.csv ada? {os.path.exists(file_hour)}")
 
-# Cek apakah file tersedia sebelum dibaca
+# Load dataset jika file ada
 if os.path.exists(file_day) and os.path.exists(file_hour):
     df_day = pd.read_csv(file_day)
     df_hour = pd.read_csv(file_hour)
 else:
-    st.error("File dataset tidak ditemukan! Pastikan 'day.csv' dan 'hour.csv' ada di dalam folder 'Dashboard'.")
+    st.error("⚠️ File dataset tidak ditemukan! Pastikan 'day.csv' dan 'hour.csv' ada di dalam folder 'Dashboard'.")
+    st.stop()  # Hentikan eksekusi jika file tidak ada
   
 # Pastikan kolom "count" ada (rename jika perlu)
 df_day.rename(columns={"cnt": "count", "hum": "humidity", "windspeed": "windspeed"}, inplace=True)
