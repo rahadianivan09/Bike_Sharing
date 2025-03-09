@@ -9,16 +9,16 @@ import os
 st.title("Bike Sharing Dashboard")
 
 # Load dataset
-# Tentukan path file dataset
-file_day = os.path.join(os.getcwd(), "day.csv")
-file_hour = os.path.join(os.getcwd(), "hour.csv")
+# Tentukan path file dataset berdasarkan lokasi file app.py
+file_day = os.path.join(os.path.dirname(__file__), "Dashboard", "day.csv")
+file_hour = os.path.join(os.path.dirname(__file__), "Dashboard", "hour.csv")
 
 # Cek apakah file tersedia sebelum dibaca
 if os.path.exists(file_day) and os.path.exists(file_hour):
     df_day = pd.read_csv(file_day)
     df_hour = pd.read_csv(file_hour)
 else:
-    st.error("File dataset tidak ditemukan! Pastikan 'day.csv' dan 'hour.csv' ada di folder yang sama dengan app.py.")
+    st.error("File dataset tidak ditemukan! Pastikan 'day.csv' dan 'hour.csv' ada di dalam folder 'Dashboard'.")
   
 # Pastikan kolom "count" ada (rename jika perlu)
 df_day.rename(columns={"cnt": "count", "hum": "humidity", "windspeed": "windspeed"}, inplace=True)
