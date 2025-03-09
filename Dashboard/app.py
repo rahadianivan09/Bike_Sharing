@@ -3,14 +3,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as ticker
+import os
 
 # Judul aplikasi
 st.title("Bike Sharing Dashboard")
 
 # Load dataset
-df_day = pd.read_csv("day.csv")
-df_hour = pd.read_csv("hour.csv")
+# Tentukan path file dataset
+file_day = os.path.join(os.getcwd(), "day.csv")
+file_hour = os.path.join(os.getcwd(), "hour.csv")
 
+# Cek apakah file tersedia sebelum dibaca
+if os.path.exists(file_day) and os.path.exists(file_hour):
+    df_day = pd.read_csv(file_day)
+    df_hour = pd.read_csv(file_hour)
+else:
+    st.error("File dataset tidak ditemukan! Pastikan 'day.csv' dan 'hour.csv' ada di folder yang sama dengan app.py.")
+  
 # Pastikan kolom "count" ada (rename jika perlu)
 df_day.rename(columns={"cnt": "count", "hum": "humidity", "windspeed": "windspeed"}, inplace=True)
 df_hour.rename(columns={"cnt": "count"}, inplace=True)
