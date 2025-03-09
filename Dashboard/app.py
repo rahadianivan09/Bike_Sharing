@@ -18,10 +18,10 @@ file_day = os.path.join(current_dir, "Dashboard", "day.csv")
 file_hour = os.path.join(current_dir, "Dashboard", "hour.csv")
 
 # Debugging apakah file ada
-st.write(f"📄 Path day.csv: {file_day}")
-st.write(f"📄 Path hour.csv: {file_hour}")
-st.write(f"✅ File day.csv ada? {os.path.exists(file_day)}")
-st.write(f"✅ File hour.csv ada? {os.path.exists(file_hour)}")
+#st.write(f"📄 Path day.csv: {file_day}")
+#st.write(f"📄 Path hour.csv: {file_hour}")
+#st.write(f"✅ File day.csv ada? {os.path.exists(file_day)}")
+#st.write(f"✅ File hour.csv ada? {os.path.exists(file_hour)}")
 
 # Load dataset jika file ada
 if os.path.exists(file_day) and os.path.exists(file_hour):
