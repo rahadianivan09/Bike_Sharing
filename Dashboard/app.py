@@ -9,7 +9,7 @@ import os
 st.title("Bike Sharing Dashboard")
 
 # Load dataset
-# Tentukan path file dataset berdasarkan lokasi file app.py
+# Tentukan path file dataset
 file_day = os.path.join(os.path.dirname(__file__), "Dashboard", "day.csv")
 file_hour = os.path.join(os.path.dirname(__file__), "Dashboard", "hour.csv")
 
