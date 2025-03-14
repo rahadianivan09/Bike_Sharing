@@ -5,20 +5,28 @@ import seaborn as sns
 import matplotlib.ticker as ticker
 import os
 
-# Judul aplikasi
-st.title("Bike Sharing Dashboard")
+# 🔹 Cek folder kerja di Streamlit Cloud
+st.write("📂 Path saat ini:", os.getcwd())  # Menampilkan path kerja
+st.write("📂 Daftar file di folder ini:", os.listdir())  # Menampilkan semua file
 
-# 🔹 Cek apakah dataset tersedia
-if not os.path.exists("day.csv") or not os.path.exists("hour.csv"):
-    st.error("Dataset tidak ditemukan! Pastikan file `day.csv` dan `hour.csv` ada di folder yang sama dengan script ini.")
-    st.stop()
-    
-st.write("📂 Path saat ini:", os.getcwd())  # Menampilkan direktori kerja
-st.write("📂 Daftar file di folder ini:", os.listdir())  # Menampilkan daftar file
+# 🔹 Coba baca dataset dari lokal dulu
+data_path = "Dashboard/"  # Sesuaikan jika Streamlit berjalan dari root repo
 
-# 🔹 Load dataset
-df_day = pd.read_csv("day.csv")
-df_hour = pd.read_csv("hour.csv")
+if os.path.exists(data_path + "day.csv") and os.path.exists(data_path + "hour.csv"):
+    df_day = pd.read_csv(data_path + "day.csv")
+    df_hour = pd.read_csv(data_path + "hour.csv")
+    st.success("✅ Dataset berhasil dimuat dari file lokal!")
+else:
+    # Jika tidak ditemukan, baca dari GitHub
+    GITHUB_RAW_URL = "https://raw.githubusercontent.com/rahadianivan09/Bike_Sharing/main/Dashboard/"
+    try:
+        df_day = pd.read_csv(GITHUB_RAW_URL + "day.csv")
+        df_hour = pd.read_csv(GITHUB_RAW_URL + "hour.csv")
+        st.success("✅ Dataset berhasil dimuat dari GitHub!")
+    except Exception as e:
+        st.error("❌ Dataset tidak ditemukan! Pastikan file `day.csv` dan `hour.csv` ada.")
+        st.error(f"Error: {e}")
+        st.stop()
 
 # 🔹 Pastikan kolom "count" ada (rename jika perlu)
 df_day.rename(columns={"cnt": "count", "hum": "humidity", "windspeed": "windspeed"}, inplace=True)
@@ -48,7 +56,7 @@ filtered_data = df_day.copy()
 if selected_season != "All":
     filtered_data = filtered_data[filtered_data["season_label"] == selected_season]
 
-filtered_data = filtered_data[(filtered_data["dteday"] >= pd.to_datetime(start_date)) &
+filtered_data = filtered_data[(filtered_data["dteday"] >= pd.to_datetime(start_date)) & 
                               (filtered_data["dteday"] <= pd.to_datetime(end_date))]
 
 # 🔹 Menampilkan statistik dasar
@@ -96,4 +104,4 @@ ax.set_ylabel("Total Peminjaman")
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
 st.pyplot(fig)
 
-st.write("Dashboard ini dibuat menggunakan Streamlit")
+st.write("✅ **Dashboard ini dibuat menggunakan Streamlit** 🚀")
