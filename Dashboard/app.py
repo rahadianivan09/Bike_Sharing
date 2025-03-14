@@ -6,8 +6,8 @@ import matplotlib.ticker as ticker
 import os
 
 # 🔹 Cek folder kerja di Streamlit Cloud
-st.write("📂 Path saat ini:", os.getcwd())  # Menampilkan path kerja
-st.write("📂 Daftar file di folder ini:", os.listdir())  # Menampilkan semua file
+#st.write("📂 Path saat ini:", os.getcwd())  # Menampilkan path kerja
+#st.write("📂 Daftar file di folder ini:", os.listdir())  # Menampilkan semua file
 
 # 🔹 Coba baca dataset dari lokal dulu
 data_path = "Dashboard/"  # Sesuaikan jika Streamlit berjalan dari root repo
