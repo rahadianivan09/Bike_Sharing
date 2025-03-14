@@ -12,6 +12,9 @@ st.title("Bike Sharing Dashboard")
 if not os.path.exists("day.csv") or not os.path.exists("hour.csv"):
     st.error("Dataset tidak ditemukan! Pastikan file `day.csv` dan `hour.csv` ada di folder yang sama dengan script ini.")
     st.stop()
+    
+st.write("📂 Path saat ini:", os.getcwd())  # Menampilkan direktori kerja
+st.write("📂 Daftar file di folder ini:", os.listdir())  # Menampilkan daftar file
 
 # 🔹 Load dataset
 df_day = pd.read_csv("day.csv")
